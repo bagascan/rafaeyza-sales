@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // 1. Import useNavigate
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext'; // 1. Import useAuth
 import './AuthPage.css';
@@ -31,7 +31,7 @@ const RegisterPage = () => {
     const toastId = toast.loading('Mendaftarkan akun...');
 
     try {
-      const res = await axios.post('/api/auth/register', formData);
+      const res = await api.post('/auth/register', formData);
 
       // 3. Panggil login dan berikan callback untuk navigasi
       await login(res.data.token, () => {

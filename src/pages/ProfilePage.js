@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api';
 import { toast } from 'react-hot-toast';
+import api from '../api'; // Import instance api
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
 import { useAuth } from '../context/AuthContext'; // Import useAuth
@@ -42,7 +42,7 @@ const ProfilePage = () => {
     e.preventDefault();
     const toastId = toast.loading('Memperbarui nama...');
     try {
-      await axios.put('/api/auth/update-details', { name });
+      await api.put('/auth/update-details', { name });
       toast.success('Nama berhasil diperbarui!', { id: toastId });
     } catch (err) {
       toast.error('Gagal memperbarui nama.', { id: toastId });
@@ -60,7 +60,7 @@ const ProfilePage = () => {
 
     const toastId = toast.loading('Mengubah password...');
     try {
-      await axios.put('/api/auth/change-password', {
+      await api.put('/auth/change-password', {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword,
       });
@@ -92,13 +92,13 @@ const ProfilePage = () => {
       });
 
       // Kirim langganan ke backend
-      await axios.post('/api/notifications/subscribe', subscription);
+      await api.post('/notifications/subscribe', subscription);
 
       setIsSubscribed(true);
       toast.success('Anda berhasil berlangganan notifikasi!', { id: toastId });
 
       // Kirim notifikasi tes
-      await axios.post('/api/notifications/test-push');
+      await api.post('/notifications/test-push');
 
     } catch (err) {
       console.error('Failed to subscribe:', err);

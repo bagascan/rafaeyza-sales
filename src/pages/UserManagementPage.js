@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner'; // Hapus FaUsers jika ada di sini
@@ -18,7 +18,7 @@ const UserManagementPage = () => {
     const fetchData = async () => {
       try {
         // 1. Verifikasi peran admin
-        const userRes = await axios.get('/api/auth/user');
+        const userRes = await api.get('/auth/user');
         if (userRes.data.role !== 'admin') {
           toast.error('Anda tidak memiliki akses ke halaman ini.');
           navigate('/');
@@ -26,7 +26,7 @@ const UserManagementPage = () => {
         }
 
         // 2. Ambil daftar semua pengguna
-        const usersRes = await axios.get('/api/users');
+        const usersRes = await api.get('/users');
         // PASTIKAN users SELALU ARRAY
         setUsers(Array.isArray(usersRes.data) ? usersRes.data : []);
 
@@ -44,7 +44,7 @@ const UserManagementPage = () => {
     if (window.confirm(`Apakah Anda yakin ingin menghapus pengguna "${userName}"? Aksi ini tidak dapat dibatalkan.`)) {
       const toastId = toast.loading('Menghapus pengguna...');
       try {
-        await axios.delete(`/api/users/${userId}`);
+        await api.delete(`/users/${userId}`);
         setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
         toast.success(`Pengguna "${userName}" berhasil dihapus.`, { id: toastId });
       } catch (err) {

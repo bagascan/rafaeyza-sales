@@ -6,7 +6,7 @@ const setAuthToken = token => {
     api.defaults.headers.common['x-auth-token'] = token;
   } else {
     // Delete auth header
-    delete axios.defaults.headers.common['x-auth-token'];
+    delete api.defaults.headers.common['x-auth-token'];
   }
 };
 

@@ -25,7 +25,7 @@ const ResetPasswordPage = () => {
     const toastId = toast.loading('Mereset password...');
 
     try {
-      const res = await axios.post(`/api/auth/reset-password/${token}`, { password });
+      const res = await api.post(`/auth/reset-password/${token}`, { password });
 
       // Panggil login dan berikan callback untuk navigasi
       await login(res.data.token, () => {

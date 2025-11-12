@@ -36,7 +36,7 @@ const RouteReportPage = () => {
       setLoading(true);
       try {
         // Ganti URL ini dengan endpoint API Anda yang sebenarnya
-        const res = await axios.get(`/api/reports/visits-by-date?date=${date}`);
+        const res = await api.get(`/reports/visits-by-date?date=${date}`);
         
         // --- CRITICAL FIX: Filter out visits that don't have valid location data ---
         const validVisits = res.data.filter(visit => 

@@ -5,7 +5,7 @@ import MainLayout from '../components/layout/MainLayout';
 import DashboardCard from '../components/DashboardCard';
 import TopSalesList from '../components/TopSalesList'; // Corrected import path
 import Spinner from '../components/Spinner';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import './DashboardPage.css';
 import { FaDolly, FaMoneyBillWave, FaStar, FaArrowRight } from 'react-icons/fa';
 
@@ -23,10 +23,10 @@ const DashboardPage = () => {
       try {
         // Fetch all dashboard data in parallel
         const [userRes, summaryRes, consignmentsRes, topSalesRes] = await Promise.all([
-          axios.get('/api/auth/user'),
-          axios.get('/api/dashboard/summary'),
-          axios.get('/api/dashboard/active-consignments'),
-          axios.get('/api/dashboard/top-sales')
+          api.get('/auth/user'),
+          api.get('/dashboard/summary'),
+          api.get('/dashboard/active-consignments'),
+          api.get('/dashboard/top-sales')
         ]);
 
         

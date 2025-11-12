@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import { useAuth } from '../context/AuthContext'; // Import useAuth
@@ -29,7 +29,7 @@ const AdminSettingsPage = () => {
         }
 
         // 2. Ambil data pengaturan saat ini
-        const settingsRes = await axios.get('/settings');
+        const settingsRes = await api.get('/settings');
         setSettings(settingsRes.data);
 
       } catch (error) {
@@ -53,7 +53,7 @@ const AdminSettingsPage = () => {
     const toastId = toast.loading('Menyimpan pengaturan...');
 
     try {
-      await axios.put('/settings', settings);
+      await api.put('/settings', settings);
       toast.success('Pengaturan berhasil disimpan!', { id: toastId });
     } catch (err) {
       toast.error('Gagal menyimpan pengaturan.', { id: toastId });

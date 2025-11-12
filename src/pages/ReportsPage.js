@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // CORRECTED: Import Link from react-router-dom
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { useAuth } from '../context/AuthContext'; // 1. Import useAuth
 import './ReportsPage.css';
 import {
@@ -74,10 +74,10 @@ const ReportsPage = () => {
           topProductsRes,
           topSalesRes, // NEW: Fetch top sales data
         ] = await Promise.all([
-          axios.get('/api/visits', { params }),
-          axios.get('/api/dashboard/top-customers', { params }),
-          axios.get('/api/dashboard/top-products', { params }),
-          axios.get('/api/dashboard/top-sales', { params }), // NEW: Fetch top sales
+          api.get('/visits', { params }),
+          api.get('/dashboard/top-customers', { params }),
+          api.get('/dashboard/top-products', { params }),
+          api.get('/dashboard/top-sales', { params }), // NEW: Fetch top sales
         ]);
 
         const safeVisits = Array.isArray(visitsRes.data.visits) ? visitsRes.data.visits : [];

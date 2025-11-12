@@ -19,18 +19,16 @@ const EditUserPage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // Otorisasi admin
-        const adminRes = await axios.get('/api/auth/user');
+        // Otorisasi admin (menggunakan instance 'api')
+        const adminRes = await api.get('/auth/user');
         if (adminRes.data.role !== 'admin') {
           toast.error('Akses ditolak.');
           navigate('/users');
           return;
         }
 
-        // Ambil data pengguna yang akan diedit
-        // Kita perlu endpoint baru untuk ini, atau kita bisa filter dari daftar semua pengguna
-        // Untuk efisiensi, kita akan filter dari daftar semua pengguna
-        const usersRes = await axios.get('/api/users'); 
+        // Ambil daftar semua pengguna untuk menemukan yang akan diedit (menggunakan instance 'api')
+        const usersRes = await api.get('/users'); 
         // PASTIKAN usersRes.data adalah array sebelum memanggil .find()
         const userToEdit = Array.isArray(usersRes.data) ? usersRes.data.find(u => u._id === userId) : null;
 
@@ -59,7 +57,7 @@ const EditUserPage = () => {
     setIsSubmitting(true);
     const toastId = toast.loading('Memperbarui pengguna...');
     try {
-      await axios.put(`/api/users/${userId}`, formData);
+      await api.put(`/users/${userId}`, formData);
       toast.success('Data pengguna berhasil diperbarui!', { id: toastId });
       navigate('/users');
     } catch (err) {

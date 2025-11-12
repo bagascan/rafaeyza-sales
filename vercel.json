@@ -9,12 +9,18 @@
   ],
   "routes": [
     {
-      "src": "/(.*\\.(js|css|json|png|jpg|ico|svg|txt))",
+      "src": "/(.*\\.(js|css|json|png|jpg|jpeg|gif|svg|ico))",
       "dest": "/$1"
     },
     {
       "src": "/(.*)",
       "dest": "/index.html"
+    }
+  ],
+ "crons": [
+    {
+      "path": "/api/cron/reset-status",
+      "schedule": "0 20 * * *"
     }
   ]
 }

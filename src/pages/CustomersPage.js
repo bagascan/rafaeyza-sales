@@ -29,7 +29,7 @@ const CustomersPage = () => {
           search: searchTerm,
           sort: sortOption,
         };
-    const res = await axios.get('/customers', { params }); // Hapus URL absolut
+    const res = await api.get('/customers', { params });
         setCustomers(Array.isArray(res.data.customers) ? res.data.customers : []);
         setTotalPages(res.data.totalPages);
 
@@ -53,7 +53,7 @@ const CustomersPage = () => {
     if (window.confirm(`Apakah Anda yakin ingin menghapus pelanggan "${customerName}"?`)) {
       const toastId = toast.loading('Menghapus pelanggan...');
       try {
-    await axios.delete(`/customers/${customerId}`); // Hapus URL absolut
+    await api.delete(`/customers/${customerId}`);
         // Remove the customer from the local state to update the UI instantly
         setCustomers(prevCustomers => prevCustomers.filter(c => c._id !== customerId));
         toast.success(`Pelanggan "${customerName}" berhasil dihapus.`, { id: toastId });

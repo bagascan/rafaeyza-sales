@@ -22,7 +22,7 @@ const EditProductPage = () => {
   useEffect(() => {
     const checkRole = async () => {
       try {
-        const userRes = await axios.get('/api/auth/user');
+        const userRes = await api.get('/auth/user');
         if (userRes.data.role !== 'admin') {
           toast.error('Anda tidak memiliki akses untuk mengedit produk.');
           navigate('/products');
@@ -37,7 +37,7 @@ const EditProductPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`/api/products/${productId}`);
+        const res = await api.get(`/products/${productId}`);
         setFormData({
           name: res.data.name,
           price: (res.data.price || '').toString(),
@@ -74,7 +74,7 @@ const EditProductPage = () => {
     const toastId = toast.loading('Memperbarui produk...');
 
     try {
-      await axios.put(`/api/products/${productId}`, {
+      await api.put(`/products/${productId}`, {
         name: formData.name,
         price: Number(formData.price),
         profit: Number(formData.profit),

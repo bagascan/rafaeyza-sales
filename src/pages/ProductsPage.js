@@ -25,7 +25,7 @@ const ProductsPage = () => {
           page: currentPage,
           search: searchTerm,
         };
-        const res = await axios.get('/api/products', { params });
+        const res = await api.get('/products', { params });
         setProducts(Array.isArray(res.data.products) ? res.data.products : []);
         setTotalPages(res.data.totalPages);
       } catch (err) {
@@ -48,7 +48,7 @@ const ProductsPage = () => {
     if (window.confirm(`Apakah Anda yakin ingin menghapus produk "${productName}"?`)) {
       const toastId = toast.loading('Menghapus produk...');
       try {
-        await axios.delete(`/api/products/${productId}`);
+        await api.delete(`/products/${productId}`);
         setProducts(prevProducts => prevProducts.filter(p => p._id !== productId));
         toast.success(`Produk "${productName}" berhasil dihapus.`, { id: toastId });
       } catch (err) {

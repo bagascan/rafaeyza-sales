@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
@@ -19,7 +19,7 @@ const ProductStockReportPage = () => {
   useEffect(() => {
     const initializePage = async () => {
       try {
-        const userRes = await axios.get('/api/auth/user');
+        const userRes = await api.get('/auth/user');
         if (userRes.data.role !== 'admin') {
           toast.error('Anda tidak memiliki akses ke halaman ini.');
           navigate('/');
@@ -28,7 +28,7 @@ const ProductStockReportPage = () => {
 
         // FIX: Fetch ALL products by setting a high limit and ignoring pagination
         // The backend returns an object { products: [...] }, so we need to access the array.
-        const productsRes = await axios.get('/api/products?limit=1000');
+        const productsRes = await api.get('/products?limit=1000');
         const allProducts = productsRes.data.products;
 
         setProducts(allProducts);
@@ -54,7 +54,7 @@ const ProductStockReportPage = () => {
     setIsFetchingReport(true);
     setReportData(null); // Kosongkan data lama
     try {
-      const res = await axios.get('/api/reports/product-stock', {
+      const res = await api.get('/reports/product-stock', {
         params: { productId: selectedProductId }
       });
       setReportData(res.data);

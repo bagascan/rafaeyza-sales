@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
@@ -155,10 +155,10 @@ const VisitDetailPage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const customerRes = await axios.get(`/api/customers/${customerId}`);
+        const customerRes = await api.get(`/customers/${customerId}`);
         setCustomer(customerRes.data);
 
-        const productsRes = await axios.get('/api/products');
+        const productsRes = await api.get('/products');
         setAllProducts(productsRes.data);
 
         setInventory([]);
@@ -197,7 +197,7 @@ const VisitDetailPage = () => {
     // --- NEW: Fetch the last stock for this specific product ---
     const toastId = toast.loading(`Mencari stok awal untuk ${product.name}...`);
     try {
-      const res = await axios.get(`/api/visits/last-stock/${customerId}/${product._id}`);
+      const res = await api.get(`/visits/last-stock/${customerId}/${product._id}`);
       const lastStock = res.data.finalStock;
 
       const newItem = {
@@ -442,8 +442,8 @@ const VisitDetailPage = () => {
       // Append the photo file with the correct fieldname
       formData.append('attendancePhoto', attendancePhotoRef.current); // Get the file from ref
 
-      // Store the result of the axios call into a 'res' constant
-      const res = await axios.post('/api/visits', formData);
+      // Store the result of the api call into a 'res' constant
+      const res = await api.post('/visits', formData);
       toast.success('Kunjungan berhasil disimpan!', { id: toastId });
 
       // Redirect to the receipt page, passing only the NEW visit ID.

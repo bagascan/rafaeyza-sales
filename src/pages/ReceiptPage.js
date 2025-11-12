@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
 import './ReceiptPage.css';
@@ -15,7 +15,7 @@ const ReceiptPage = () => {
   useEffect(() => {
     const fetchVisitData = async () => {
       try {
-        const res = await axios.get(`/api/visits/${visitId}`);
+        const res = await api.get(`/visits/${visitId}`);
         setVisit(res.data);
       } catch (err) {
         console.error("Error fetching receipt data:", err);
