@@ -2,10 +2,6 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/package.json",
-      "use": "@vercel/node"
-    },
-    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": { "distDir": "build" }
@@ -13,21 +9,13 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/backend/index.js"
-    },
-    {
-      "src": "/(.*\\.(js|css|json|png|jpg|jpeg|gif|svg|ico))",
-      "dest": "/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
   ],
  "crons": [
     {
-      "path": "/api/cron/trigger",
+      "path": "/api/cron/reset-status",
       "schedule": "0 20 * * *"
     }
   ]
