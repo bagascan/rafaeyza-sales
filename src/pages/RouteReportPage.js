@@ -47,7 +47,7 @@ const RouteReportPage = () => {
         );
 
         // Sort the valid visits by time to ensure the route is correct
-        const sortedVisits = validVisits.sort((a, b) => new Date(a.visitTime) - new Date(b.visitTime));
+        const sortedVisits = validVisits.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         setVisits(sortedVisits); // Set state with only valid and sorted visits
 
         if (res.data.length === 0) {
@@ -94,7 +94,7 @@ const RouteReportPage = () => {
                             <span className="visit-order">{index + 1}</span>
                             <div className="visit-details">
                                 <span className="customer-name">{visit.customer.name}</span>
-                                <span className="visit-time">{new Date(visit.visitTime).toLocaleTimeString('id-ID')}</span>
+                                <span className="visit-time">{new Date(visit.createdAt).toLocaleTimeString('id-ID')}</span>
                             </div>
                         </li>
                     ))}
