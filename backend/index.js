@@ -51,7 +51,8 @@ if (process.env.NODE_ENV !== 'vercel') { // Kita buat kondisi agar ini tidak ber
   const buildPath = path.resolve(__dirname, '../build');
   app.use(express.static(buildPath));
 
-  app.get('/*', (req, res) => {
+  // Rute ini hanya akan menangani permintaan yang BUKAN API
+  app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.resolve(buildPath, 'index.html'));
   });
 }
