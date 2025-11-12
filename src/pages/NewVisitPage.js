@@ -15,7 +15,7 @@ const NewVisitPage = () => {
     const fetchInactiveCustomers = async () => {
       try {
         // 2. GANTI: Hapus URL absolut, gunakan path relatif
-        const res = await axios.get('/dashboard/inactive-consignments'); 
+        const res = await axios.get('/api/dashboard/inactive-consignments'); // FIX: Tambahkan /api
         // PASTIKAN customers SELALU ARRAY
         setCustomers(Array.isArray(res.data) ? res.data : []);
       } catch (err) {

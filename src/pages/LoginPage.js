@@ -30,7 +30,7 @@ const LoginPage = () => {
       // --- DEBUG: Lihat data yang dikirim ---
       console.log('Mengirim data login:', formData);
 
-      const res = await axios.post('/auth/login', formData); // Gunakan URL relatif
+      const res = await axios.post('/api/auth/login', formData); // FIX: Tambahkan /api
       
       // --- DEBUG: Lihat respons dari backend ---
       console.log('Backend merespons dengan sukses:', res.data);

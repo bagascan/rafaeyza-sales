@@ -23,10 +23,10 @@ const DashboardPage = () => {
       try {
         // Fetch all dashboard data in parallel
         const [userRes, summaryRes, consignmentsRes, topSalesRes] = await Promise.all([
-          axios.get('/auth/user'),
-          axios.get('/dashboard/summary'),
-          axios.get('/dashboard/active-consignments'),
-          axios.get('/dashboard/top-sales')
+          axios.get('/api/auth/user'),
+          axios.get('/api/dashboard/summary'),
+          axios.get('/api/dashboard/active-consignments'),
+          axios.get('/api/dashboard/top-sales')
         ]);
 
         

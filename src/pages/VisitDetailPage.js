@@ -155,10 +155,10 @@ const VisitDetailPage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const customerRes = await axios.get(`/customers/${customerId}`);
+        const customerRes = await axios.get(`/api/customers/${customerId}`);
         setCustomer(customerRes.data);
 
-        const productsRes = await axios.get('/products');
+        const productsRes = await axios.get('/api/products');
         setAllProducts(productsRes.data);
 
         setInventory([]);
@@ -197,7 +197,7 @@ const VisitDetailPage = () => {
     // --- NEW: Fetch the last stock for this specific product ---
     const toastId = toast.loading(`Mencari stok awal untuk ${product.name}...`);
     try {
-      const res = await axios.get(`/visits/last-stock/${customerId}/${product._id}`);
+      const res = await axios.get(`/api/visits/last-stock/${customerId}/${product._id}`);
       const lastStock = res.data.finalStock;
 
       const newItem = {
@@ -443,7 +443,7 @@ const VisitDetailPage = () => {
       formData.append('attendancePhoto', attendancePhotoRef.current); // Get the file from ref
 
       // Store the result of the axios call into a 'res' constant
-      const res = await axios.post('/visits', formData);
+      const res = await axios.post('/api/visits', formData);
       toast.success('Kunjungan berhasil disimpan!', { id: toastId });
 
       // Redirect to the receipt page, passing only the NEW visit ID.
