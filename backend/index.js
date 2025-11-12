@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 scheduleDailyReport();
 scheduleStockAlert();
 
-// --- PINDAHKAN BLOK INI KE SINI ---
+// --- BLOK FRONTEND (HARUS DI AKHIR SEBELUM EXPORT) ---
 // Sajikan aplikasi React yang sudah di-build HANYA untuk lingkungan produksi lokal
 if (process.env.NODE_ENV !== 'vercel') {
   const buildPath = path.resolve(__dirname, '../build');
@@ -62,6 +62,6 @@ if (process.env.NODE_ENV !== 'vercel') {
     console.log(`Server berjalan di http://localhost:${PORT}`);
   });
 }
-// --- AKHIR BLOK PEMINDAHAN ---
+// --- AKHIR BLOK FRONTEND ---
 
 module.exports = app; // Export the app for Vercel
