@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
-import externalApi from '../externalApi'; // 1. Import instance axios eksternal
+import api, { nominatimApi } from '../api'; // Impor kedua instance dari file api terpusat
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
@@ -29,7 +28,7 @@ const EditCustomerPage = () => {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const res = await axios.get(`/api/customers/${customerId}`);
+        const res = await api.get(`/customers/${customerId}`);
         setFormData({
           name: res.data.name,
           address: res.data.address,
@@ -41,7 +40,7 @@ const EditCustomerPage = () => {
 
         // If the current user is an admin, fetch the list of all sales users
         if (user?.role === 'admin') {
-          const salesUsersRes = await axios.get('/api/auth/sales-users');
+          const salesUsersRes = await api.get('/auth/sales-users');
           // PASTIKAN salesUsers SELALU ARRAY
           setSalesUsers(Array.isArray(salesUsersRes.data) ? salesUsersRes.data : []);
         }
@@ -75,7 +74,7 @@ const EditCustomerPage = () => {
     const toastId = toast.loading('Mencari alamat dari lokasi...');
     try {
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
-      const res = await externalApi.get(url); // 2. Gunakan externalApi
+      const res = await nominatimApi.get(`/reverse?format=json&lat=${lat}&lon=${lng}`);
       if (res.data && res.data.display_name) {
         // Update the address field with the result
         setFormData(prev => ({ ...prev, address: res.data.display_name }));
@@ -99,7 +98,7 @@ const EditCustomerPage = () => {
     const toastId = toast.loading('Mencari koordinat alamat...');
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`;
-      const res = await externalApi.get(url); // 3. Gunakan externalApi
+      const res = await nominatimApi.get(`/search?q=${encodeURIComponent(address)}&format=json&limit=1`);
       if (res.data && res.data.length > 0) {
         const { lat, lon } = res.data[0];
         setFormData(prev => ({ ...prev, latitude: lat, longitude: lon }));
@@ -129,7 +128,7 @@ const EditCustomerPage = () => {
         ...formData,
         user: assignedUser,
       };
-      await axios.put(`/api/customers/${customerId}`, payload);
+      await api.put(`/customers/${customerId}`, payload);
       toast.success('Data pelanggan berhasil diperbarui!', { id: toastId });
       navigate('/customers');
     } catch (err) {

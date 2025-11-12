@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
 import './NewVisitPage.css';
@@ -15,7 +15,7 @@ const NewVisitPage = () => {
     const fetchInactiveCustomers = async () => {
       try {
         // 2. GANTI: Hapus URL absolut, gunakan path relatif
-        const res = await axios.get('/api/dashboard/inactive-consignments'); // FIX: Tambahkan /api
+        const res = await api.get('/dashboard/inactive-consignments'); // FIX: Tambahkan /api
         // PASTIKAN customers SELALU ARRAY
         setCustomers(Array.isArray(res.data) ? res.data : []);
       } catch (err) {

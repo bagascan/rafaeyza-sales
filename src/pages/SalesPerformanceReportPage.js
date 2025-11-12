@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Menggunakan instance API terpusat
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
@@ -26,14 +26,14 @@ const SalesPerformanceReportPage = () => {
   useEffect(() => {
     const initializePage = async () => {
       try {
-        const userRes = await axios.get('/api/auth/user');
+        const userRes = await api.get('/auth/user');
         if (userRes.data.role !== 'admin') {
           toast.error('Anda tidak memiliki akses ke halaman ini.');
           navigate('/');
           return;
         }
 
-        const salesUsersRes = await axios.get('/api/auth/sales-users');
+        const salesUsersRes = await api.get('/auth/sales-users');
         setSalesUsers(salesUsersRes.data);
         if (salesUsersRes.data.length > 0) {
           setFilters(prev => ({ ...prev, userId: salesUsersRes.data[0]._id }));
@@ -64,7 +64,7 @@ const SalesPerformanceReportPage = () => {
     setIsFetchingReport(true);
     setReportData(null); // Kosongkan data lama
     try {
-      const res = await axios.get('/api/reports/sales-performance', { params: filters });
+      const res = await api.get('/reports/sales-performance', { params: filters });
       setReportData(res.data);
     } catch (err) {
       console.error('Error fetching sales performance report:', err);

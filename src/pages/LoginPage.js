@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // 1. Import useNavigate
-import axios from 'axios';
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext'; // Import useAuth
 import './AuthPage.css'; // We'll create this CSS file next
@@ -27,7 +27,7 @@ const LoginPage = () => {
     const toastId = toast.loading('Mencoba masuk...');
 
     try {
-      const res = await axios.post('/api/auth/login', formData); // FIX: Tambahkan /api
+      const res = await api.post('/auth/login', formData);
       
       // Jika kode sampai di sini, berarti backend mengembalikan status 2xx (sukses)
       // dan mengirimkan token.

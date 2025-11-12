@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import './AuthPage.css'; // Kita gunakan gaya yang sama dengan halaman login

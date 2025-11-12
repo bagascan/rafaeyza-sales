@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import './UserFormPage.css'; // Kita akan buat file CSS ini
@@ -19,7 +19,7 @@ const AddUserPage = () => {
   useEffect(() => {
     const checkAdmin = async () => {
       try {
-        const res = await axios.get('/api/auth/user');
+        const res = await api.get('/auth/user');
         if (res.data.role !== 'admin') {
           toast.error('Akses ditolak.');
           navigate('/users');
@@ -47,7 +47,7 @@ const AddUserPage = () => {
     setIsSubmitting(true);
     const toastId = toast.loading('Membuat pengguna baru...');
     try {
-      await axios.post('/api/users', formData);
+      await api.post('/users', formData);
       toast.success('Pengguna baru berhasil dibuat!', { id: toastId });
       navigate('/users');
     } catch (err) {

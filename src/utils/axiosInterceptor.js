@@ -1,8 +1,8 @@
-import axios from 'axios';
+import api from '../api';
 import { toast } from 'react-hot-toast';
 
 const setupAxiosInterceptors = (onUnauthenticated) => {
-  axios.interceptors.response.use(
+  api.interceptors.response.use(
     // Jika respons berhasil, lanjutkan saja
     (response) => response,
     // Jika ada error pada respons

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import MainLayout from '../components/layout/MainLayout';
 import { useAuth } from '../context/AuthContext'; // 1. Import useAuth
 import Spinner from '../components/Spinner';

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import setAuthToken from '../utils/setAuthToken';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import Spinner from '../components/Spinner';
 
 const AuthContext = createContext();
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       let success = false;
       setAuthToken(storedToken); // Atur token di header Axios
       try {
-        const res = await axios.get('/auth/user');
+        const res = await api.get('/auth/user');
         setUser(res.data);
         setIsAuthenticated(true);
         success = true;

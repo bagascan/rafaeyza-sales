@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { useAuth } from '../context/AuthContext'; // Import useAuth
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
@@ -42,7 +42,7 @@ const AddProductPage = () => {
     const toastId = toast.loading('Menyimpan produk...');
 
     try {
-      await axios.post('/api/products', {
+      await api.post('/products', {
         name: formData.name,
         price: Number(formData.price),
         profit: Number(formData.profit),

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
+import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import './AuthPage.css'; // Kita gunakan gaya yang sama dengan halaman login
 
@@ -19,7 +19,7 @@ const ForgotPasswordPage = () => {
     const toastId = toast.loading('Memproses permintaan...');
 
     try {
-      const res = await axios.post('/api/auth/forgot-password', { email });
+      const res = await api.post('/auth/forgot-password', { email });
       setMessage(res.data.msg);
       toast.success('Permintaan berhasil dikirim!', { id: toastId });
     } catch (err) {

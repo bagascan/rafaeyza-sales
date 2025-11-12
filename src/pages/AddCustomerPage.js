@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Gunakan axios langsung
-import externalApi from '../externalApi'; // Instance Axios untuk API eksternal (peta)
+import api, { nominatimApi } from '../api'; // Impor kedua instance dari file api terpusat
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import './Form.css';
@@ -28,7 +27,7 @@ const AddCustomerPage = () => {
     if (user?.role === 'admin') {
       const fetchSalesUsers = async () => {
         try {
-          const res = await axios.get('/api/auth/sales-users');
+          const res = await api.get('/auth/sales-users');
           setSalesUsers(Array.isArray(res.data) ? res.data : []);
         } catch (err) {
           console.error("Failed to fetch sales users:", err);
@@ -54,8 +53,7 @@ const AddCustomerPage = () => {
     const toastId = toast.loading('Mencari alamat dari lokasi...');
     try {
       const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
-      // GANTI: Gunakan externalApi untuk panggilan ke OpenStreetMap
-      const res = await externalApi.get(url);
+      const res = await nominatimApi.get(`/reverse?format=json&lat=${lat}&lon=${lng}`);
       if (res.data && res.data.display_name) {
         setFormData(prev => ({ ...prev, address: res.data.display_name }));
         toast.success('Alamat berhasil ditemukan!', { id: toastId });
@@ -78,8 +76,7 @@ const AddCustomerPage = () => {
     const toastId = toast.loading('Mencari koordinat alamat...');
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`;
-      // GANTI: Gunakan externalApi untuk panggilan ke OpenStreetMap
-      const res = await externalApi.get(url);
+      const res = await nominatimApi.get(`/search?q=${encodeURIComponent(address)}&format=json&limit=1`);
       if (res.data && res.data.length > 0) {
         const { lat, lon } = res.data[0];
         setFormData(prev => ({ ...prev, latitude: lat, longitude: lon }));
@@ -113,7 +110,7 @@ const AddCustomerPage = () => {
         user: user?.role === 'admin' ? assignedUser : undefined,
       };
 
-      await axios.post('/api/customers', payload);
+      await api.post('/customers', payload);
       toast.success('Pelanggan baru berhasil ditambahkan!', { id: toastId });
       navigate('/customers');
     } catch (err) {
