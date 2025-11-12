@@ -52,7 +52,7 @@ const AddCustomerPage = () => {
     setFormData(prev => ({ ...prev, latitude: lat, longitude: lng }));
     const toastId = toast.loading('Mencari alamat dari lokasi...');
     try {
-      const res = await api.get(`/maps/reverse`, { params: { lat, lon } });
+      const res = await api.get(`/maps/reverse`, { params: { lat, lon: lng } });
       if (res.data && res.data.display_name) {
         setFormData(prev => ({ ...prev, address: res.data.display_name }));
         toast.success('Alamat berhasil ditemukan!', { id: toastId });

@@ -73,7 +73,7 @@ const EditCustomerPage = () => {
     // --- NEW: Reverse Geocoding ---
     const toastId = toast.loading('Mencari alamat dari lokasi...');
     try {
-      const res = await api.get(`/maps/reverse`, { params: { lat, lon } });
+      const res = await api.get(`/maps/reverse`, { params: { lat, lon: lng } });
       if (res.data && res.data.display_name) {
         // Update the address field with the result
         setFormData(prev => ({ ...prev, address: res.data.display_name }));
