@@ -1,7 +1,8 @@
+// Contoh SESUDAH
 import axios from 'axios';
 
-// Kita tidak lagi mengatur baseURL secara global.
-// Semua panggilan akan menggunakan path relatif (misal: '/api/auth/login')
-// dan akan ditangani oleh proxy server (vercel dev atau Vercel saat deploy).
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_API_URL // Menggunakan URL absolut dari .env
+});
 
-export default axios;
+export default instance;
