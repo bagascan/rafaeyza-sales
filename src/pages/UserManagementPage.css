@@ -1,0 +1,113 @@
+.user-management-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.user-management-page .toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-user-btn:hover {
+  background-color: var(--primary-blue-hover);
+}
+
+.user-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.user-card {
+  background-color: var(--card-background-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.user-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.user-details h4 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.user-details p {
+  margin: 0;
+  color: var(--subtle-text-color);
+  font-size: 0.9rem;
+}
+
+.user-role-badge {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.user-role-badge.admin {
+  background-color: var(--danger-red);
+  color: white;
+}
+
+.user-role-badge.sales {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.user-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.user-actions .action-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.user-actions .edit-btn {
+  color: var(--primary-blue);
+}
+.user-actions .edit-btn:hover {
+  background-color: var(--background-color);
+}
+
+.user-actions .delete-btn {
+  color: var(--danger-red);
+}
+.user-actions .delete-btn:hover {
+  background-color: var(--background-color);
+}

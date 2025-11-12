@@ -1,0 +1,118 @@
+.route-report-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.filter-bar {
+  background-color: var(--card-background-color);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.filter-bar label {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.date-input {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.map-section {
+  background-color: var(--card-background-color);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.visit-list-section {
+  background-color: var(--card-background-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.visit-list-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+  color: var(--text-color);
+}
+
+.visit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.visit-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.visit-list li:last-child {
+  border-bottom: none;
+}
+
+.visit-order {
+  background-color: var(--danger-red);
+  color: white;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.visit-details {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.customer-name {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.visit-time {
+  font-size: 0.9rem;
+  color: var(--subtle-text-color);
+}
+
+.no-visits-message {
+  color: var(--subtle-text-color);
+  text-align: center;
+  padding: 1rem;
+}
+/* Tambahkan di akhir file RouteReportPage.css */
+
+.route-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none; /* Penting agar tidak mengganggu event peta lainnya */
+  transform: translate(-50%, -120%); /* Posisi default agar tidak flicker */
+}

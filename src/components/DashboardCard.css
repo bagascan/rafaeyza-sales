@@ -1,0 +1,32 @@
+
+.dashboard-card {
+    display: flex;
+    align-items: center;
+    background-color: var(--card-background-color);
+    border-radius: 8px;
+    padding: 1.25rem 1rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.card-icon {
+    margin-right: 1rem;
+    color: var(--primary-blue);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    margin: 0;
+    color: var(--subtle-text-color);
+    font-size: 0.9rem;
+}
+
+.card-value {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}

@@ -1,0 +1,149 @@
+.product-stock-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-stock-page .filter-form {
+  display: flex;
+  gap: 1rem;
+  background-color: var(--card-background-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  align-items: end;
+}
+
+.product-stock-page .filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.product-stock-page .filter-group label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.product-stock-page .filter-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.product-stock-page .submit-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: fit-content;
+}
+
+.product-stock-page .submit-btn:disabled {
+  background-color: var(--subtle-text-color);
+  cursor: not-allowed;
+}
+
+.report-results {
+  margin-top: 1rem;
+}
+
+.report-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.summary-card {
+  background-color: var(--card-background-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  text-align: center;
+}
+
+.summary-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--subtle-text-color);
+  text-transform: uppercase;
+}
+
+.summary-card p {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-blue);
+}
+
+.report-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.customer-list-title {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  color: var(--text-color);
+  flex-grow: 1;
+}
+
+/* Re-use export button style */
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--success-green);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.customer-stock-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.customer-stock-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--card-background-color);
+  padding: 1rem;
+  border-radius: 6px;
+  border-left: 4px solid var(--primary-blue);
+}
+
+.customer-stock-card .customer-name {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.customer-stock-card .stock-amount {
+  font-weight: bold;
+  background-color: var(--background-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  color: var(--text-color);
+}

@@ -1,0 +1,82 @@
+/* d:/Belajar Aplikasi/website/GEMINI/rafaeyza-sales/src/pages/AuthPage.css */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f7f6; /* Hardcoded light theme color */
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background-color: #ffffff; /* Hardcoded light theme color */
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Standard shadow */
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  color: #212529; /* Hardcoded light theme color */
+}
+
+.auth-container p {
+  color: #6c757d; /* Hardcoded light theme color */
+  margin-bottom: 2rem;
+}
+
+.auth-form .input-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333; /* Hardcoded light theme color */
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da; /* Hardcoded light theme color */
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f8f9fa; /* Hardcoded light theme color */
+  color: #212529; /* Hardcoded light theme color */
+}
+
+.auth-form .submit-btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff; /* Hardcoded light theme color */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.auth-form .submit-btn:disabled {
+  background-color: #a0a0a0; /* Hardcoded light theme color */
+  cursor: not-allowed;
+}
+
+.switch-auth {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.switch-auth a {
+  color: #007bff; /* Hardcoded light theme color */
+  text-decoration: none;
+  font-weight: bold;
+}

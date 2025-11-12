@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'; // 1. Import service worker
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -10,6 +11,9 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// 2. Panggil fungsi register() untuk mengaktifkan service worker
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

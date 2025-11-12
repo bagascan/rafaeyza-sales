@@ -1,0 +1,71 @@
+/* d:/Belajar Aplikasi/website/GEMINI/rafaeyza-sales/src/pages/ProfilePage.css */
+.profile-page {
+  padding: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  background-color: var(--card-background-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  margin-bottom: 2rem;
+}
+
+.profile-card h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.profile-card .input-group {
+  margin-bottom: 1.25rem;
+}
+
+.profile-card label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.profile-card input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.profile-card input:disabled {
+  background-color: var(--background-color);
+  cursor: not-allowed;
+  color: var(--subtle-text-color);
+}
+
+.profile-card .submit-btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.profile-card .submit-btn.danger {
+  background-color: var(--danger-red);
+}
+
+.profile-card .submit-btn:hover {
+  opacity: 0.9;
+}

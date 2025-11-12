@@ -1,0 +1,53 @@
+.user-form-container {
+  padding: 1rem;
+}
+
+.user-form-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: var(--card-background-color);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.user-form-card .input-group {
+  margin-bottom: 1.5rem;
+}
+
+.user-form-card label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.user-form-card input[type="text"],
+.user-form-card input[type="password"],
+.user-form-card select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.user-form-card .submit-btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.user-form-card .submit-btn:disabled {
+  background-color: var(--subtle-text-color);
+  cursor: not-allowed;
+}

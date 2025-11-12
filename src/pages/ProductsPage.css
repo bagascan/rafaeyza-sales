@@ -1,0 +1,82 @@
+/* d:/Belajar Aplikasi/website/GEMINI/rafaeyza-sales/src/pages/ProductsPage.css */
+.products-page-container {
+  padding: 1rem;
+}
+
+.products-page-container .toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.add-product-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-product-btn:hover {
+  background-color: var(--primary-blue-hover);
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-card {
+  background-color: var(--card-background-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  border-left: 5px solid var(--success-green); /* Green color for products */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.product-info h3 {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-color);
+}
+
+.product-info span {
+  color: var(--success-green);
+  font-weight: bold;
+}
+
+.product-info p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.product-profit {
+  color: var(--success-green); /* Green for profit */
+  font-weight: bold;
+}
+
+.product-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.edit-btn { color: var(--primary-blue); } /* Changed to primary blue for consistency */
+.delete-btn { color: var(--danger-red); }

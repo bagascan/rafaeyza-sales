@@ -1,0 +1,80 @@
+ /* d:/Belajar Aplikasi/website/GEMINI/rafaeyza-sales/src/pages/AddCustomerPage.css */
+.add-customer-container {
+  padding: 1rem;
+}
+
+.add-customer-form .input-group {
+  margin-bottom: 1.5rem;
+}
+
+.add-customer-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.add-customer-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.add-customer-form .submit-btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-customer-form .submit-btn:disabled {
+  background-color: var(--subtle-text-color);
+  cursor: not-allowed;
+}
+.readonly-input {
+  background-color: var(--background-color); /* Warna abu-abu terang */
+  cursor: not-allowed;
+  color: var(--subtle-text-color);
+}
+/* Tambahkan di akhir file AddCustomerPage.css */
+
+/* Gaya untuk elemen select di dalam form */
+.add-customer-form .input-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px; /* Samakan dengan input lainnya */
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  
+  /* Hapus panah default dan tambahkan panah kustom */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+/* Gaya saat dropdown di-hover atau focus */
+.add-customer-form .input-group select:hover {
+  border-color: var(--primary-blue);
+}
+
+.add-customer-form .input-group select:focus {
+  border-color: var(--primary-blue);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--primary-blue-hover);
+}

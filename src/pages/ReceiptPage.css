@@ -1,0 +1,74 @@
+/* src/pages/ReceiptPage.css */
+.receipt-page {
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+.receipt-content {
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  background-color: var(--card-background-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.receipt-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.receipt-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.receipt-table th,
+.receipt-table td {
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  text-align: left; /* Tetap left untuk konten */
+}
+
+.receipt-table th {
+  background-color: var(--background-color);
+}
+
+.receipt-table th, .receipt-table td {
+  text-align: center; /* Center align all table content for better readability */
+}
+
+.receipt-footer {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.thank-you {
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.receipt-footer .note {
+  font-size: 0.8em;
+  color: var(--subtle-text-color);
+}
+
+.print-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.print-button {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}

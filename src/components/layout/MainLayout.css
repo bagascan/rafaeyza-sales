@@ -1,0 +1,79 @@
+.main-layout {
+  /* Variabel untuk tema terang (default) */
+  --background-color: #f4f7f6;
+  --card-background-color: #ffffff;
+  --text-color: #212529;
+  --subtle-text-color: #6c757d;
+  --border-color: #dee2e6;
+  --primary-blue: #007bff;
+  --primary-blue-hover: #0056b3;
+  --danger-red: #dc3545;
+  --success-green: #28a745;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+.main-layout.dark-theme {
+  /* Variabel untuk tema gelap */
+  --background-color: #121212;
+  --card-background-color: #1e1e1e;
+  --text-color: #e0e0e0;
+  --subtle-text-color: #a0a0a0;
+  --border-color: #444;
+  --primary-blue: #0d6efd;
+  --primary-blue-hover: #3d8bfd;
+  --danger-red: #f15b6c;
+  --success-green: #34c759;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background-color); /* Gunakan variabel */
+  color: var(--text-color); /* Pastikan semua teks dalam main-layout menghormati tema */
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: var(--card-background-color); /* Gunakan variabel */
+  box-shadow: 0 2px 4px var(--shadow-color); /* Gunakan variabel */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-color); /* Gunakan variabel */
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--subtle-text-color); /* Gunakan variabel */
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.logout-button:hover {
+  background-color: var(--background-color); /* Gunakan variabel */
+  color: var(--danger-red); /* Gunakan variabel */
+}
+
+.main-content {
+  flex-grow: 1;
+  /* Add padding to account for fixed header and footer */
+  padding-top: 20px; /* Increased padding to prevent content from being hidden by the sticky header */
+  padding-bottom: 70px; /* Adjust based on footer height */
+  padding-left: 10px;
+  padding-right: 10px;
+
+}

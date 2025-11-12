@@ -1,0 +1,113 @@
+
+.dashboard-page .welcome-header {
+    margin-bottom: 2rem;
+}
+
+.welcome-header h2 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.8rem;
+}
+
+.welcome-header p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--subtle-text-color);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.quick-actions h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.action-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-background-color);
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    transition: transform 0.2s;
+}
+
+.action-link:hover {
+    transform: translateY(-2px);
+}
+
+.active-consignments-section {
+    background-color: var(--card-background-color);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    margin-top: 1.5rem;
+}
+
+.active-consignments-section h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.active-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.active-customer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.active-customer-item:hover {
+    background-color: var(--background-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.no-active-text {
+    color: var(--subtle-text-color);
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.action-link span {
+    font-size: 1.1rem;
+}
+
+.action-link svg {
+    color: var(--primary-blue);
+}
+
+/* New style for spanning two columns */
+@media (min-width: 768px) {
+    .dashboard-card-span-2 {
+        grid-column: span 2;
+    }
+}
+
+/* --- NEW: Penyesuaian untuk Tema Gelap --- */
+/* Targetkan elemen spesifik hanya ketika .dark-theme aktif di parent */
+.dark-theme .welcome-header h2,
+.dark-theme .welcome-header p,
+.dark-theme .quick-actions h3,
+.dark-theme .active-consignments-section h3 {
+    color: #ffffff; /* Ubah warna teks menjadi putih */
+}

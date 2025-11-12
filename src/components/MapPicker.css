@@ -1,0 +1,78 @@
+.map-picker-card {
+  background-color: #fff;
+  border-radius: 12px;
+  position: relative; /* Penting agar z-index di dalamnya berfungsi */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e9ecef;
+  padding: 1rem;
+  z-index: 1; /* Berikan z-index pada card itu sendiri agar berada di atas elemen default lainnya */
+  margin-bottom: 1rem;
+}
+
+.map-container {
+  height: 250px; /* Tinggi peta */
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden; /* Pastikan tidak ada konten yang keluar */
+}
+
+/* OpenLayers specific z-index adjustments to ensure it's not on top of other UI */
+.map-container .ol-viewport,
+.map-container .ol-layer,
+.map-container .ol-overlay-container {
+  z-index: 0 !important; /* Paksa z-index menjadi 0 agar berada di belakang elemen UI lain */
+}
+
+/* Styles for the layer switcher */
+.layer-switcher {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10; /* Pastikan switcher berada di atas peta */
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  display: flex;
+  gap: 5px;
+}
+
+.layer-switcher button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 0.8em;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.layer-switcher button:hover {
+  background-color: #e9ecef;
+}
+
+.layer-switcher button.active {
+  background-color: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+/* Style for the map type toggle button */
+.map-type-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000; /* Ensure it's above the map */
+  padding: 8px 12px;
+  background-color: var(--card-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  color: var(--text-color);
+}
+
+.map-type-toggle:hover {
+  background-color: var(--background-color);
+}
