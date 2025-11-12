@@ -26,6 +26,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json()); // For parsing application/json
 
+// --- DEBUG: Cek apakah server backend di Vercel berjalan ---
+console.log("BACKEND: Server Express telah diinisialisasi.");
+console.log("server berhasil");
+
 // Define Routes
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/customers', require('./routes/customerRoutes'));
