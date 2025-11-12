@@ -42,10 +42,11 @@ app.get('/', (req, res) => {
   res.send('Rafaeyza Sales Backend API is running!');
 });
 
-// Serve static files from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// 2. Jalankan penjadwal tugas
+scheduleDailyReport();
+scheduleStockAlert();
 
-// --- TAMBAHKAN BLOK INI ---
+// --- PINDAHKAN BLOK INI KE SINI ---
 // Sajikan aplikasi React yang sudah di-build HANYA untuk lingkungan produksi lokal
 if (process.env.NODE_ENV !== 'vercel') {
   const buildPath = path.resolve(__dirname, '../build');
@@ -61,10 +62,6 @@ if (process.env.NODE_ENV !== 'vercel') {
     console.log(`Server berjalan di http://localhost:${PORT}`);
   });
 }
-// --- AKHIR BLOK TAMBAHAN ---
-
-// 2. Jalankan penjadwal tugas
-scheduleDailyReport();
-scheduleStockAlert();
+// --- AKHIR BLOK PEMINDAHAN ---
 
 module.exports = app; // Export the app for Vercel
