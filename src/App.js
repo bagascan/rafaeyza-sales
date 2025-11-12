@@ -5,6 +5,7 @@ import Spinner from './components/Spinner'; // Import Spinner
 import { AuthProvider, useAuth } from './context/AuthContext'; // Import AuthProvider
 import DashboardPage from './pages/DashboardPage';
 import CustomersPage from './pages/CustomersPage';
+import NewVisitPage from './pages/NewVisitPage';
 import ReportsPage from './pages/ReportsPage';
 import ProductStockReportPage from './pages/ProductStockReportPage'; // 1. Import halaman baru
 import SalesPerformanceReportPage from './pages/SalesPerformanceReportPage'; // 1. Import halaman baru
