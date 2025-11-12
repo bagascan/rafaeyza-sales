@@ -27,14 +27,8 @@ const LoginPage = () => {
     const toastId = toast.loading('Mencoba masuk...');
 
     try {
-      // --- DEBUG: Lihat data yang dikirim ---
-      console.log('Mengirim data login:', formData);
-
       const res = await axios.post('/api/auth/login', formData); // FIX: Tambahkan /api
       
-      // --- DEBUG: Lihat respons dari backend ---
-      console.log('Backend merespons dengan sukses:', res.data);
-
       // Jika kode sampai di sini, berarti backend mengembalikan status 2xx (sukses)
       // dan mengirimkan token.
       if (res.data && res.data.token) {
@@ -44,21 +38,10 @@ const LoginPage = () => {
           navigate('/'); // Arahkan ke dashboard setelah login benar-benar selesai
         });
       } else {
-        // Ini adalah kasus aneh jika backend merespons sukses tapi tanpa token
+        // Kasus jika backend merespons sukses tapi tanpa token
         throw new Error('Respons server tidak valid.');
       }
     } catch (err) {
-      // --- DEBUG: Lihat error yang ditangkap ---
-      console.error('Terjadi error saat login:', err);
-
-      // --- TAMBAHAN DEBUG: Cek jika ini adalah network error (tidak bisa terhubung) ---
-      if (!err.response) {
-        console.error('NETWORK ERROR: Tidak bisa terhubung ke backend. Pastikan server backend berjalan dan dapat diakses, atau periksa konfigurasi proxy/jaringan.');
-      } else {
-        // Jika ada respons dari backend (misal: 400, 404, 500), log detailnya
-        console.error('Detail error response:', err.response);
-      }
-      // Jika kode sampai di sini, berarti axios.post gagal (misalnya, status 400 atau 500)
       const errorMsg = err.response?.data?.msg || 'Login gagal. Periksa kembali username dan password Anda.';
       toast.error(errorMsg, { id: toastId });
     } finally {

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api';
-import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate
+import axios from 'axios'; // Gunakan axios langsung
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 import MainLayout from '../components/layout/MainLayout';
 import RouteMap from '../components/RouteMap'; // Impor komponen peta rute
 import Spinner from '../components/Spinner';
@@ -17,30 +18,19 @@ const getTodayDateString = () => {
 };
 
 const RouteReportPage = () => {
-  const navigate = useNavigate(); // 2. Inisialisasi navigate
+  const navigate = useNavigate();
   const [date, setDate] = useState(getTodayDateString());
   const [visits, setVisits] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [userRole, setUserRole] = useState(null); // State untuk peran pengguna
+  const { user } = useAuth(); // Dapatkan info pengguna dari context
+
+  // Redirect jika bukan admin
+  if (user && user.role !== 'admin') {
+    toast.error('Anda tidak memiliki akses ke halaman ini.');
+    navigate('/reports');
+  }
 
   useEffect(() => {
-    // --- NEW: Fetch user role to check authorization ---
-    const checkUserRole = async () => {
-      try {
-        const userRes = await axios.get('/api/auth/user');
-        if (userRes.data.role !== 'admin') {
-          toast.error('Anda tidak memiliki akses ke halaman ini.');
-          navigate('/'); // Redirect to dashboard if not admin
-        } else {
-          setUserRole('admin');
-        }
-      } catch (error) {
-        toast.error('Sesi tidak valid. Silakan login kembali.');
-        navigate('/login');
-      }
-    };
-    checkUserRole();
-
     const fetchVisitsByDate = async () => {
       if (!date) return;
       setLoading(true);
@@ -72,13 +62,10 @@ const RouteReportPage = () => {
     };
 
     // Hanya jalankan fetchVisitsByDate jika pengguna adalah admin
-    if (userRole === 'admin') {
+    if (user?.role === 'admin') {
       fetchVisitsByDate();
     }
-  }, [date, userRole, navigate]); // 3. Tambahkan dependensi
-
-  // Tampilkan loading atau null jika peran belum terverifikasi
-  if (!userRole) return <MainLayout title="Verifikasi..."><Spinner /></MainLayout>;
+  }, [date, user, navigate]);
   
   return (
     <MainLayout title="Laporan Rute Kunjungan">

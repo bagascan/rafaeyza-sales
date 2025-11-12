@@ -26,10 +26,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json()); // For parsing application/json
 
-// --- DEBUG: Cek apakah server backend di Vercel berjalan ---
-console.log("BACKEND: Server Express telah diinisialisasi.");
-console.log("server berhasil");
-
 // Define Routes
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/customers', require('./routes/customerRoutes'));
@@ -50,8 +46,8 @@ app.get('/', (req, res) => {
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // --- TAMBAHKAN BLOK INI ---
-// Sajikan aplikasi React yang sudah di-build untuk lingkungan produksi lokal
-if (process.env.NODE_ENV !== 'vercel') { // Kita buat kondisi agar ini tidak berjalan di Vercel
+// Sajikan aplikasi React yang sudah di-build HANYA untuk lingkungan produksi lokal
+if (process.env.NODE_ENV !== 'vercel') {
   const buildPath = path.resolve(__dirname, '../build');
   app.use(express.static(buildPath));
 
@@ -59,18 +55,16 @@ if (process.env.NODE_ENV !== 'vercel') { // Kita buat kondisi agar ini tidak ber
   app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.resolve(buildPath, 'index.html'));
   });
+
+  // Start the server HANYA jika file ini dieksekusi secara langsung (bukan diimpor oleh Vercel)
+  app.listen(PORT, () => {
+    console.log(`Server berjalan di http://localhost:${PORT}`);
+  });
 }
 // --- AKHIR BLOK TAMBAHAN ---
 
 // 2. Jalankan penjadwal tugas
 scheduleDailyReport();
 scheduleStockAlert();
-
-// Jalankan server HANYA jika file ini dieksekusi secara langsung (bukan diimpor oleh Vercel)
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Server backend berjalan di http://localhost:${PORT}`);
-  });
-}
 
 module.exports = app; // Export the app for Vercel

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api';
-import { useEffect } from 'react';
+import axios from 'axios'; // Gunakan axios langsung
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import './AddProductPage.css';
@@ -15,22 +15,13 @@ const AddProductPage = () => {
     barcode: '', // NEW: Add barcode field
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth(); // Dapatkan info pengguna dari context
 
-  // Check user role on component mount
-  useEffect(() => {
-    const checkRole = async () => {
-      try {
-        const userRes = await axios.get('/api/auth/user');
-        if (userRes.data.role !== 'admin') {
-          toast.error('Anda tidak memiliki akses untuk menambah produk.');
-          navigate('/products');
-        }
-      } catch (err) {
-        navigate('/login'); // Redirect to login if user data cannot be fetched
-      }
-    };
-    checkRole();
-  }, [navigate]);
+  // Redirect jika bukan admin
+  if (user && user.role !== 'admin') {
+    toast.error('Anda tidak memiliki akses ke halaman ini.');
+    navigate('/products');
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
