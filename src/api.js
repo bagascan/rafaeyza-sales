@@ -1,15 +1,16 @@
 import axios from 'axios';
 
-// 1. Buat sebuah instance axios yang sudah dikonfigurasi sebelumnya.
+// ==================================================
+// INSTANCE UNTUK API BACKEND ANDA (DEFAULT EXPORT)
+// ==================================================
 const api = axios.create({
-  // 2. Ambil URL dasar dari environment variable yang sudah kita siapkan.
+  // Ambil URL dasar dari environment variable.
   baseURL: process.env.REACT_APP_API_URL
 });
 
 /*
- * 3. (Opsional tapi sangat direkomendasikan)
- *    Gunakan interceptor untuk menambahkan token otentikasi secara otomatis
- *    ke setiap permintaan jika pengguna sudah login.
+ * Gunakan interceptor untuk menambahkan token otentikasi secara otomatis
+ * ke setiap permintaan jika pengguna sudah login.
  */
 api.interceptors.request.use(
   (config) => {
@@ -27,5 +28,16 @@ api.interceptors.request.use(
   }
 );
 
-// 4. Ekspor instance yang sudah siap pakai ini.
 export default api;
+
+// ==================================================
+// INSTANCE UNTUK API EKSTERNAL (PETA NOMINATIM)
+// ==================================================
+export const nominatimApi = axios.create({
+  baseURL: 'https://nominatim.openstreetmap.org'
+});
+
+/*
+ * Catatan: Kita tidak perlu interceptor untuk API ini karena
+ * ini adalah API publik dan tidak memerlukan token otentikasi.
+ */
