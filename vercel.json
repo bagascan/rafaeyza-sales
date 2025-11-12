@@ -27,7 +27,7 @@
   ],
  "crons": [
     {
-      "path": "/api/cron/reset-status",
+      "path": "/api/cron/trigger",
       "schedule": "0 20 * * *"
     }
   ]

@@ -4,12 +4,9 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const path = require('path');
-const cron = require('node-cron'); // Import cron
-const webpush = require('web-push'); // Import web-push
-const scheduleDailyReport = require('./jobs/dailyReportJob'); // 1. Import tugas terjadwal
-const scheduleStockAlert = require('./jobs/stockAlertJob'); // 1. Import job baru
 
 // Web-push VAPID keys
+const webpush = require('web-push');
 webpush.setVapidDetails(
   'mailto:bagascndr@gmail.com', // Ganti dengan email Anda
   process.env.VAPID_PUBLIC_KEY,
@@ -36,15 +33,12 @@ app.use('/api/reports', require('./routes/reports'));
 app.use('/api/notifications', require('./routes/notificationRoutes'));
 app.use('/api/users', require('./routes/userRoutes')); // Tambahkan ini
 app.use('/api/settings', require('./routes/settingsRoutes')); // NEW: Register settings routes
+app.use('/api/cron', require('./routes/cronRoutes')); // Daftarkan rute cron baru
 
 // Basic route
 app.get('/', (req, res) => {
   res.send('Rafaeyza Sales Backend API is running!');
 });
-
-// 2. Jalankan penjadwal tugas
-scheduleDailyReport();
-scheduleStockAlert();
 
 // --- BLOK FRONTEND (HARUS DI AKHIR SEBELUM EXPORT) ---
 // Sajikan aplikasi React yang sudah di-build HANYA untuk lingkungan produksi lokal
