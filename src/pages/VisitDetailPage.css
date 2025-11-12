@@ -276,3 +276,13 @@ input[type=number] {
   border: 2px dashed var(--border-color);
   border-radius: 8px;
 }
+.inventory-warning-message {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(255, 193, 7, 0.15); /* Light yellow background */
+  color: #856404; /* Dark yellow text */
+  border-left: 4px solid #ffc107; /* Yellow border */
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}

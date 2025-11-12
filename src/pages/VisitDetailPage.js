@@ -44,6 +44,7 @@ const VisitDetailPage = () => {
   const [isScannerActive, setIsScannerActive] = useState(false); // 2. State untuk mengontrol pemindai
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false); // NEW: State for search modal
   
+  const [appSettings, setAppSettings] = useState(null); // NEW: State to hold application settings
   const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo file temporarily
 
   // --- NEW: Function to check distance and show toast ---
@@ -57,7 +58,7 @@ const VisitDetailPage = () => {
         customer.location.longitude
       );
 
-      if (distance <= 200) { // 200 meters tolerance
+      if (distance <= (appSettings?.attendanceDistanceTolerance || 200)) { // Use dynamic setting
         toast.success(`Jarak Anda sesuai (${distance.toFixed(0)} meter).`);
         setIsLocationValid(true);
       } else {
@@ -65,7 +66,7 @@ const VisitDetailPage = () => {
         setIsLocationValid(false);
       }
     }
-  }, [salesLocation, customer]);
+  }, [salesLocation, customer, appSettings]); // Add appSettings as a dependency
 
   // --- CORRECTED: Define getLocation as a function ---
   const getLocation = useCallback(() => {
@@ -155,11 +156,14 @@ const VisitDetailPage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const customerRes = await api.get(`/customers/${customerId}`);
+        const [customerRes, productsRes, settingsRes] = await Promise.all([
+          api.get(`/customers/${customerId}`),
+          api.get('/products'),
+          api.get('/settings') // Fetch settings
+        ]);
         setCustomer(customerRes.data);
-
-        const productsRes = await api.get('/products');
-        setAllProducts(productsRes.data);
+        setAllProducts(Array.isArray(productsRes.data.products) ? productsRes.data.products : []); // Pastikan selalu array
+        setAppSettings(settingsRes.data); // Store settings in state
 
         setInventory([]);
         setError(null);
