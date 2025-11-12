@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api'; // Instance Axios untuk backend kita
+import axios from 'axios'; // Gunakan axios langsung
 import externalApi from '../externalApi'; // Instance Axios untuk API eksternal (peta)
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';

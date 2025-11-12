@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // CORRECTED: Import Link from react-router-dom
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
-import axios from '../api';
+import axios from 'axios'; // Gunakan axios langsung
 import { useAuth } from '../context/AuthContext'; // 1. Import useAuth
 import './ReportsPage.css';
 import {

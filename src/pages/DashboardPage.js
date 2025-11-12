@@ -5,7 +5,7 @@ import MainLayout from '../components/layout/MainLayout';
 import DashboardCard from '../components/DashboardCard';
 import TopSalesList from '../components/TopSalesList'; // Corrected import path
 import Spinner from '../components/Spinner';
-import axios from '../api'; // Gunakan instance axios yang sudah dikonfigurasi
+import axios from 'axios'; // Gunakan axios langsung
 import './DashboardPage.css';
 import { FaDolly, FaMoneyBillWave, FaStar, FaArrowRight } from 'react-icons/fa';
 

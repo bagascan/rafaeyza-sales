@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // 1. Import useNavigate
-import axios from 'axios'; // Gunakan axios langsung
+import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext'; // Import useAuth
 import './AuthPage.css'; // We'll create this CSS file next

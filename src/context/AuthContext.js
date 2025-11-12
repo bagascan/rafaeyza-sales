@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import setAuthToken from '../utils/setAuthToken';
-import axios from '../api';
+import axios from 'axios'; // Gunakan axios langsung
 import Spinner from '../components/Spinner';
 
 const AuthContext = createContext();

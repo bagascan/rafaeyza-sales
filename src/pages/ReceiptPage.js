@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from '../api';
+import axios from 'axios'; // Gunakan axios langsung
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
 import './ReceiptPage.css';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api'; // 1. GANTI: Gunakan instance axios yang sudah dikonfigurasi
+import axios from 'axios'; // Gunakan axios langsung
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
 import './NewVisitPage.css';

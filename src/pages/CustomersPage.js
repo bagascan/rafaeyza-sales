@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner'; 
-import axios from '../api'; // Gunakan instance axios yang sudah dikonfigurasi
+import axios from 'axios'; // Gunakan axios langsung
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import './CustomersPage.css';
 

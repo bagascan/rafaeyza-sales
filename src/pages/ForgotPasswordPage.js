@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from '../api';
+import axios from 'axios'; // Gunakan axios langsung
 import { toast } from 'react-hot-toast';
 import './AuthPage.css'; // Kita gunakan gaya yang sama dengan halaman login
 
