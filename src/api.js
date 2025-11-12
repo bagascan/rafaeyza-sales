@@ -29,20 +29,3 @@ api.interceptors.request.use(
 );
 
 export default api;
-
-// ==================================================
-// INSTANCE UNTUK API EKSTERNAL (PETA NOMINATIM)
-// ==================================================
-export const nominatimApi = axios.create({
-  baseURL: 'https://nominatim.openstreetmap.org',
-  headers: {
-    // PENTING: Nominatim mewajibkan User-Agent. Ganti dengan email Anda.
-    // Ini untuk mengidentifikasi aplikasi Anda sesuai kebijakan penggunaan Nominatim.
-    'User-Agent': 'RafaeyzaSalesApp/1.0 (bagascndr@gmail.com)' 
-  }
-});
-
-/*
- * Catatan: Kita tidak perlu interceptor untuk API ini karena
- * ini adalah API publik dan tidak memerlukan token otentikasi.
- */

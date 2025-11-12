@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api, { nominatimApi } from '../api'; // Impor kedua instance dari file api terpusat
+import api from '../api'; // Hanya impor instance 'api' utama
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import './Form.css';
@@ -52,8 +52,7 @@ const AddCustomerPage = () => {
     setFormData(prev => ({ ...prev, latitude: lat, longitude: lng }));
     const toastId = toast.loading('Mencari alamat dari lokasi...');
     try {
-      const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
-      const res = await nominatimApi.get(`/reverse?format=json&lat=${lat}&lon=${lng}`);
+      const res = await api.get(`/maps/reverse`, { params: { lat, lon } });
       if (res.data && res.data.display_name) {
         setFormData(prev => ({ ...prev, address: res.data.display_name }));
         toast.success('Alamat berhasil ditemukan!', { id: toastId });
@@ -75,8 +74,7 @@ const AddCustomerPage = () => {
     setIsGeocoding(true); // Atur ke true saat geocoding dimulai
     const toastId = toast.loading('Mencari koordinat alamat...');
     try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`;
-      const res = await nominatimApi.get(`/search?q=${encodeURIComponent(address)}&format=json&limit=1`);
+      const res = await api.get(`/maps/search`, { params: { q: address } });
       if (res.data && res.data.length > 0) {
         const { lat, lon } = res.data[0];
         setFormData(prev => ({ ...prev, latitude: lat, longitude: lon }));
