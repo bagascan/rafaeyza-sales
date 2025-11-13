@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../api'; // Sesuaikan path ke instance API Anda
 import { useAuth } from '../context/AuthContext'; // Sesuaikan path ke AuthContext Anda
 import MainLayout from '../components/layout/MainLayout'; // Sesuaikan path ke MainLayout Anda
@@ -39,7 +39,7 @@ const ReportPage = () => {
     setDateRange(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleFetchReport = async () => {
+  const handleFetchReport = useCallback(async () => {
     if (user?.role === 'admin' && !selectedSales) {
       toast.error('Silakan pilih seorang sales.');
       return;
@@ -66,7 +66,7 @@ const ReportPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, selectedSales, dateRange.startDate, dateRange.endDate]); // Dependencies for useCallback
 
   // Ambil laporan secara otomatis saat komponen dimuat pertama kali (untuk sales)
   // atau saat sales default dipilih (untuk admin)
@@ -74,8 +74,7 @@ const ReportPage = () => {
     if (user?.role === 'sales' || (user?.role === 'admin' && selectedSales)) {
       handleFetchReport();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, selectedSales]); // Hanya dijalankan saat user atau selectedSales berubah
+  }, [handleFetchReport, user, selectedSales]); // Now includes handleFetchReport
 
   return (
     <MainLayout title="Laporan Performa">
