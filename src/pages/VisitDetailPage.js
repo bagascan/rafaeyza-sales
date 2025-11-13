@@ -193,6 +193,12 @@ const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo f
   
         // 4. LOGIKA KUNCI: Bangun inventaris awal
         const lastInventory = (lastVisitRes && lastVisitRes.status === 200) ? lastVisitRes.data.inventory : [];
+
+        // FIX: Show a toast notification if this is the first visit.
+        if (!lastVisitRes || lastVisitRes.status !== 200) {
+          toast.success('Ini adalah kunjungan pertama ke pelanggan ini.');
+        }
+
         const initialInventory = allProductsData.map(product => {
           const lastProductState = lastInventory.find(item => item.product._id === product._id);
           return {
