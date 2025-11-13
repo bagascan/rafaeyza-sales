@@ -152,30 +152,68 @@ const VisitDetailPage = () => {
   }, []); // Empty dependency array as it has no external dependencies
 
   // Effect 1: Fetch initial data (customer and all products)
-  useEffect(() => {
+   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [customerRes, productsRes, settingsRes] = await Promise.all([
+
+        // Buat array promises secara kondisional
+        const promises = [
           api.get(`/customers/${customerId}`),
           api.get('/products'),
-          api.get('/settings') // Fetch settings
-        ]);
-        setCustomer(customerRes.data);
-        setAllProducts(Array.isArray(productsRes.data.products) ? productsRes.data.products : []); // Pastikan selalu array
-        setAppSettings(settingsRes.data); // Store settings in state
+        ];
 
-        setInventory([]);
-        setError(null);
+        // Hanya tambahkan promise untuk settings jika pengguna adalah admin
+        if (user?.role === 'admin') {
+          promises.push(api.get('/settings'));
+        }
+
+        // Jalankan semua promises secara paralel
+        const results = await Promise.all(promises);
+
+        // Destrukturisasi hasil berdasarkan urutan promises
+        const customerRes = results[0];
+        const productsRes = results[1];
+        let settingsRes = null;
+
+        // Jika settings promise ditambahkan, maka hasilnya ada di indeks terakhir
+        if (user?.role === 'admin') {
+          settingsRes = results[2];
+        }
+
+        // Set state dengan data yang diterima
+        setCustomer(customerRes.data);
+        setAllProducts(Array.isArray(productsRes.data.products) ? productsRes.data.products : []);
+
+        // Hanya set appSettings jika data settings berhasil diambil
+        if (settingsRes) {
+          setAppSettings(settingsRes.data);
+        } else {
+          // Jika bukan admin, settings tidak diambil. Set ke null atau default jika diperlukan.
+          setAppSettings(null);
+        }
+
+        setInventory([]); // Reset inventory atau set nilai awal
+        setError(null); // Hapus error sebelumnya
+
       } catch (err) {
         console.error('Error fetching data:', err);
-        setError('Gagal memuat data untuk kunjungan.');
+        // Tangani error 403 secara spesifik jika berasal dari /settings
+        if (err.response && err.response.status === 403 && err.config.url.includes('/settings')) {
+          toast.error('Anda tidak memiliki izin untuk melihat pengaturan aplikasi.');
+          // Lanjutkan tanpa pengaturan, atau set pengaturan ke nilai default yang aman
+          setAppSettings(null);
+        } else {
+          setError('Gagal memuat data untuk kunjungan.');
+          toast.error('Gagal memuat data untuk kunjungan.');
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchData();
-  }, [customerId]);
+  }, [customerId, user?.role]); // Tambahkan user?.role sebagai dependensi
+
 
   // Effect 2: Get sales location once on component mount
   useEffect(() => {
