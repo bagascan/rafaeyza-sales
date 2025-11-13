@@ -36,8 +36,11 @@ const EditCustomerPage = () => {
           latitude: res.data.location?.latitude || '',
           longitude: res.data.location?.longitude || '',
         });
-        setAssignedUser(res.data.user); // Set the initially assigned user
-
+        // BUG FIX 1: Set state only with the user's ID, not the whole object.
+        // The <select> value needs a string ID to match an <option> value.
+        if (res.data.user && res.data.user._id) {
+          setAssignedUser(res.data.user._id);
+        }
         // If the current user is an admin, fetch the list of all sales users
         if (user?.role === 'admin') {
           const salesUsersRes = await api.get('/auth/sales-users');
@@ -124,7 +127,8 @@ const EditCustomerPage = () => {
       // Include the assignedUser in the payload sent to the backend
       const payload = {
         ...formData,
-        user: assignedUser,
+         // BUG FIX 2: The backend expects the field to be named 'userId'.
+        userId: assignedUser,
       };
       await api.put(`/customers/${customerId}`, payload);
       toast.success('Data pelanggan berhasil diperbarui!', { id: toastId });
@@ -176,7 +180,7 @@ const EditCustomerPage = () => {
                 onChange={handleChange}
               >
                 {salesUsers.map(user => (
-                  <option key={user.id} value={user.id}>{user.name}</option>
+                 <option key={user._id} value={user._id}>{user.name}</option>
                 ))}
               </select>
             </div>
