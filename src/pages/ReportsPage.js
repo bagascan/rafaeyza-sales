@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api'; // Sesuaikan path ke instance API Anda
-import { useAuth } from './context/AuthContext'; // Sesuaikan path ke AuthContext Anda
-import MainLayout from './components/layout/MainLayout'; // Sesuaikan path ke MainLayout Anda
-import Spinner from './components/Spinner';
+import { useAuth } from '../context/AuthContext'; // Sesuaikan path ke AuthContext Anda
+import MainLayout from '../components/layout/MainLayout'; // Sesuaikan path ke MainLayout Anda
+import Spinner from '../components/Spinner';
 import { toast } from 'react-hot-toast';
 
 const ReportPage = () => {
