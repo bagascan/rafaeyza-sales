@@ -157,66 +157,64 @@ const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo f
   }, []); // Empty dependency array as it has no external dependencies
 
   // Effect 1: Fetch initial data (customer and all products)
-   useEffect(() => {
-    const fetchData = async () => {
+  useEffect(() => {
+    const initializeVisitData = async () => {
       try {
         setLoading(true);
-
-        // Buat array promises secara kondisional
+  
+        // 1. Buat array promises untuk mengambil semua data yang diperlukan secara paralel
         const promises = [
+          // Ambil data kunjungan terakhir untuk pelanggan ini
+          api.get(`/visits/customer/${customerId}/last`).catch(err => null), // Gunakan .catch agar Promise.all tidak gagal jika kunjungan terakhir tidak ada
+          // Ambil SEMUA produk (limit=1000 sebagai cara praktis)
+          api.get('/products?limit=1000'),
+          // Ambil detail pelanggan saat ini
           api.get(`/customers/${customerId}`),
-          api.get('/products'),
         ];
-
-        // Hanya tambahkan promise untuk settings jika pengguna adalah admin
+  
+        // Hanya tambahkan promise untuk mengambil settings jika pengguna adalah admin
         if (user?.role === 'admin') {
           promises.push(api.get('/settings'));
         }
-
-        // Jalankan semua promises secara paralel
+  
+        // 2. Jalankan semua promise
         const results = await Promise.all(promises);
-
-        // Destrukturisasi hasil berdasarkan urutan promises
-        const customerRes = results[0];
+  
+        // 3. Proses hasil dari promise
+        const lastVisitRes = results[0];
         const productsRes = results[1];
-        let settingsRes = null;
-
-        // Jika settings promise ditambahkan, maka hasilnya ada di indeks terakhir
-        if (user?.role === 'admin') {
-          settingsRes = results[2];
-        }
-
-        // Set state dengan data yang diterima
+        const customerRes = results[2];
+        const settingsRes = user?.role === 'admin' ? results[3] : null;
+  
         setCustomer(customerRes.data);
-        setAllProducts(Array.isArray(productsRes.data.products) ? productsRes.data.products : []);
-
-        // Hanya set appSettings jika data settings berhasil diambil
-        if (settingsRes) {
-          setAppSettings(settingsRes.data);
-        } else {
-          // Jika bukan admin, settings tidak diambil. Set ke null atau default jika diperlukan.
-          setAppSettings(null);
-        }
-
-        setInventory([]); // Reset inventory atau set nilai awal
-        setError(null); // Hapus error sebelumnya
-
+        const allProductsData = Array.isArray(productsRes.data.products) ? productsRes.data.products : [];
+        setAllProducts(allProductsData);
+        if (settingsRes) setAppSettings(settingsRes.data);
+  
+        // 4. LOGIKA KUNCI: Bangun inventaris awal
+        const lastInventory = (lastVisitRes && lastVisitRes.status === 200) ? lastVisitRes.data.inventory : [];
+        const initialInventory = allProductsData.map(product => {
+          const lastProductState = lastInventory.find(item => item.product._id === product._id);
+          return {
+            product: product._id, // Simpan hanya ID
+            productName: product.name,
+            barcode: product.barcode,
+            initialStock: lastProductState ? lastProductState.finalStock : 0, // Ambil stok akhir dari kunjungan terakhir
+            addedStock: 0, finalStock: 0, returns: 0, error: null,
+          };
+        }).filter(item => item.initialStock > 0); // Hanya tampilkan produk yang memiliki stok awal
+  
+        setInventory(initialInventory);
+        setError(null);
       } catch (err) {
         console.error('Error fetching data:', err);
-        // Tangani error 403 secara spesifik jika berasal dari /settings
-        if (err.response && err.response.status === 403 && err.config.url.includes('/settings')) {
-          toast.error('Anda tidak memiliki izin untuk melihat pengaturan aplikasi.');
-          // Lanjutkan tanpa pengaturan, atau set pengaturan ke nilai default yang aman
-          setAppSettings(null);
-        } else {
-          setError('Gagal memuat data untuk kunjungan.');
-          toast.error('Gagal memuat data untuk kunjungan.');
-        }
+        setError('Gagal mempersiapkan data kunjungan.');
+        toast.error('Gagal mempersiapkan data kunjungan.');
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
+    initializeVisitData();
   }, [customerId, user?.role]); // Tambahkan user?.role sebagai dependensi
 
 
