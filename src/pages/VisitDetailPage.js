@@ -9,6 +9,8 @@ import './VisitDetailPage.css';
 import { Html5QrcodeScanner } from 'html5-qrcode'; // 1. Import library pemindai
 import ProductSearchModal from '../components/ProductSearchModal'; // 1. Import modal
 import { addOfflineVisit } from '../utils/db'; // 1. Import helper IndexedDB
+import { useAuth } from '../context/AuthContext';
+
 
 // --- NEW: Haversine formula to calculate distance on the frontend ---
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -43,9 +45,12 @@ const VisitDetailPage = () => {
   const [locationError, setLocationError] = useState(null);
   const [isScannerActive, setIsScannerActive] = useState(false); // 2. State untuk mengontrol pemindai
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false); // NEW: State for search modal
-  
-  const [appSettings, setAppSettings] = useState(null); // NEW: State to hold application settings
-  const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo file temporarily
+const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo file temporarily
+
+  const { user } = useAuth(); // Dapatkan info pengguna dari context
+
+  // Asumsi state ini ada di komponen Anda, sesuai dengan penggunaan di useEffect yang Anda berikan
+ const [appSettings, setAppSettings] = useState(null); // Untuk settingsRes.data
 
   // --- NEW: Function to check distance and show toast ---
   // MOVED HERE to be initialized before any useEffect that might use it.
