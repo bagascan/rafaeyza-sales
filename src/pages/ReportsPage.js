@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'; // Sesuaikan path ke AuthConte
 import MainLayout from '../components/layout/MainLayout'; // Sesuaikan path ke MainLayout Anda
 import Spinner from '../components/Spinner';
 import { toast } from 'react-hot-toast';
-
+import './ReportsPage.css';
 const ReportPage = () => {
   const { user } = useAuth();
   const [reportData, setReportData] = useState(null);
@@ -141,7 +141,8 @@ const ReportPage = () => {
                   <tbody>
                     {reportData.visits.map(visit => {
                       const visitSales = visit.inventory.reduce((total, item) => {
-                        const sold = item.initialStock - (item.finalStock + item.returns);
+                        // Rumus baru: (Stok Awal + Tambah Stok) - (Stok Akhir + Retur)
+                        const sold = (item.initialStock + (item.addedStock || 0)) - (item.finalStock + item.returns);
                         return total + (sold > 0 ? sold * (item.product?.price || 0) : 0);
                       }, 0);
 

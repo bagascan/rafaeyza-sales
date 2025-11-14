@@ -87,7 +87,8 @@ const ProductStockReportPage = () => {
     // Tambahkan ringkasan di bagian bawah
     csvRows.push(''); // Baris kosong sebagai pemisah
     csvRows.push('Ringkasan Laporan');
-    csvRows.push(`Total Stok di Luar,${reportData.totalStockOutside}`);
+    // FIX: Use the correct calculation for totalSold in the summary
+    csvRows.push(`Total Stok di Luar (pcs),${reportData.totalStockOutside}`);
     csvRows.push(`Total Terjual (Global),${reportData.totalSold}`);
 
     const csvString = csvRows.join('\n');

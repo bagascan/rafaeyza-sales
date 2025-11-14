@@ -37,7 +37,8 @@ const ReceiptPage = () => {
 
   // Calculate total items sold to determine which view to show
   const totalItemsSold = visit.inventory.reduce((acc, item) => {
-    return acc + Math.max(0, item.initialStock - item.finalStock - item.returns);
+    // FIX: Include addedStock in calculation
+    return acc + Math.max(0, (item.initialStock + (item.addedStock || 0)) - item.finalStock - item.returns);
   }, 0);
 
   const handleBluetoothPrint = async () => {
@@ -73,6 +74,10 @@ const ReceiptPage = () => {
       // ESC/POS commands to build the receipt
       append(encoder.encode('\x1B@')); // Initialize printer
       append(encoder.encode('\x1B\x61\x01')); // Center align
+      // --- NEW: Add Store Name ---
+      append(encoder.encode('\x1D\x21\x01')); // Double width
+      append(encoder.encode('RAFAEYZA BAROKAH\n'));
+
       append(encoder.encode('\x1D\x21\x11')); // Double height and width
       append(encoder.encode('Nota Penjualan\n'));
       append(encoder.encode('\x1D\x21\x00')); // Normal size
@@ -87,7 +92,8 @@ const ReceiptPage = () => {
       append(encoder.encode('--------------------------------\n'));
 
       visit.inventory.forEach(item => {
-        const sold = item.initialStock - item.finalStock - item.returns;
+        // FIX: Include addedStock in calculation
+        const sold = (item.initialStock + (item.addedStock || 0)) - item.finalStock - item.returns;
         if (sold > 0) {
           const total = sold * item.product.price;
           const name = item.product.name.padEnd(15).substring(0, 15);
@@ -117,7 +123,8 @@ const ReceiptPage = () => {
 
   const calculateVisitTotal = () => {
     return visit.inventory.reduce((total, item) => {
-      const sold = item.initialStock - item.finalStock - item.returns;
+      // FIX: Include addedStock in calculation
+      const sold = (item.initialStock + (item.addedStock || 0)) - item.finalStock - item.returns;
       const itemTotal = sold > 0 ? sold * (item.product?.price || 0) : 0;
       return total + itemTotal;
     }, 0);
@@ -129,6 +136,10 @@ const ReceiptPage = () => {
         {totalItemsSold > 0 ? (
           // --- Sales Receipt View (If there are sales) ---
           <div className="receipt-content">
+            {/* --- NEW: Add Store Name --- */}
+            <div className="store-name-header">
+              <h1>RAFAEYZA BAROKAH</h1>
+            </div>
             <h2 className="receipt-title">Nota Penjualan</h2>
             <div className="receipt-header">
               <p><strong>Sales:</strong> {visit.user.name}</p>
@@ -146,7 +157,8 @@ const ReceiptPage = () => {
               </thead>
               <tbody>
                 {visit.inventory.map(item => {
-                  const sold = Math.max(0, item.initialStock - item.finalStock - item.returns);
+                  // FIX: Include addedStock in calculation
+                  const sold = Math.max(0, (item.initialStock + (item.addedStock || 0)) - item.finalStock - item.returns);
                   if (sold <= 0) return null; // Only show sold items
                   const total = sold * (item.product?.price || 0);
                   return (
@@ -169,6 +181,10 @@ const ReceiptPage = () => {
         ) : (
           // --- Stock Activity Report View (If no sales) ---
           <div className="receipt-content">
+            {/* --- NEW: Add Store Name --- */}
+            <div className="store-name-header">
+              <h1>RAFAEYZA BAROKAH</h1>
+            </div>
             <h2 className="receipt-title">Laporan Aktivitas Stok</h2>
             <div className="receipt-header">
               <p><strong>Sales:</strong> {visit.user.name}</p>
@@ -180,6 +196,8 @@ const ReceiptPage = () => {
                 <tr>
                   <th>Produk</th>
                   <th>Stok Awal</th>
+                  {/* NEW: Add column for added stock */}
+                  <th>Tambah Stok</th>
                   <th>Stok Akhir</th>
                 </tr>
               </thead>
@@ -188,6 +206,7 @@ const ReceiptPage = () => {
                   <tr key={item.product?._id || item._id}>
                     <td>{item.product?.name || 'Produk Dihapus'}</td>
                     <td>{item.initialStock}</td>
+                    <td>{item.addedStock || 0}</td>
                     <td>{item.finalStock}</td>
                   </tr>
                 ))}
