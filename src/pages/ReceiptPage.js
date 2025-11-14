@@ -73,11 +73,12 @@ const ReceiptPage = () => {
 
       // ESC/POS commands to build the receipt
       append(encoder.encode('\x1B@')); // Initialize printer
-      append(encoder.encode('\x1B\x61\x01')); // Center align
       // --- NEW: Add Store Name ---
+      append(encoder.encode('\x1B\x61\x01')); // Center align
       append(encoder.encode('\x1D\x21\x01')); // Double width
       append(encoder.encode('RAFAEYZA BAROKAH\n'));
 
+      append(encoder.encode('\x1B\x61\x01')); // Center align
       append(encoder.encode('\x1D\x21\x11')); // Double height and width
       append(encoder.encode('Nota Penjualan\n'));
       append(encoder.encode('\x1D\x21\x00')); // Normal size

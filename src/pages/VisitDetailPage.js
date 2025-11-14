@@ -4,7 +4,7 @@ import api from '../api'; // Ganti import axios dengan api
 import { toast } from 'react-hot-toast';
 import MainLayout from '../components/layout/MainLayout';
 import Spinner from '../components/Spinner';
-import { FaTrash } from 'react-icons/fa'; // 1. Import ikon tong sampah
+import { FaTrash, FaSyncAlt } from 'react-icons/fa'; // 1. Import ikon tong sampah dan refresh
 import './VisitDetailPage.css';
 import { Html5QrcodeScanner } from 'html5-qrcode'; // 1. Import library pemindai
 import ProductSearchModal from '../components/ProductSearchModal'; // 1. Import modal
@@ -42,6 +42,7 @@ const VisitDetailPage = () => {
   const [salesLocation, setSalesLocation] = useState(null); // State for sales's current location
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState(null); // NEW: State for the photo preview URL
   const [isLocationValid, setIsLocationValid] = useState(false); // NEW: State to track if location is valid
+  const [isLocationAccurate, setIsLocationAccurate] = useState(false); // NEW: State for location accuracy
   const [locationError, setLocationError] = useState(null);
   const [isScannerActive, setIsScannerActive] = useState(false); // 2. State untuk mengontrol pemindai
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false); // NEW: State for search modal
@@ -97,6 +98,7 @@ const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo f
             latitude: finalPosition.coords.latitude,
             longitude: finalPosition.coords.longitude,
           });
+          setIsLocationAccurate(finalPosition.coords.accuracy <= 50); // Set accuracy status
           setLocationError(null);
           if (isSuccess) {
             toast.success(message, { id: toastId });
@@ -116,6 +118,7 @@ const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo f
 
           // If accuracy is good enough (e.g., under 50 meters), stop watching
           if (position.coords.accuracy <= 50) {
+            setIsLocationAccurate(true);
             stopWatching(position, 'Lokasi akurat berhasil ditemukan!', true); // Stop watching if accurate enough
           }
         },
@@ -135,6 +138,7 @@ const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo f
             const accuracy = bestPosition.coords.accuracy.toFixed(0);
             // CRITICAL CHANGE: Only stop watching if the best accuracy is acceptable (< 200m)
             if (bestPosition.coords.accuracy <= 200) {
+              setIsLocationAccurate(bestPosition.coords.accuracy <= 50);
               stopWatching(bestPosition, `Akurasi terbaik: ${accuracy}m.`, false);
             } else {
               // If accuracy is still very bad, DON'T stop. Keep watching in the background.
@@ -520,9 +524,15 @@ const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo f
         <div className="attendance-section">
           <h4>Absensi di Lokasi</h4>
           {locationError && <p className="location-error">{locationError}</p>}
-          {salesLocation && (
+          {salesLocation && ( // Show location info only if available
             <p className="location-info">
-              Lokasi Anda: Lat {salesLocation.latitude.toFixed(5)}, Lon {salesLocation.longitude.toFixed(5)}
+              Akurasi: {isLocationAccurate ? 'Baik' : 'Kurang'}
+              {/* NEW: Refresh button, only shows when location is not accurate */}
+              {!isLocationAccurate && (
+                <button type="button" onClick={getLocation} className="refresh-location-btn" title="Cari ulang lokasi">
+                  <FaSyncAlt />
+                </button>
+              )}
             </p>
           )}
         <div className="input-group">
