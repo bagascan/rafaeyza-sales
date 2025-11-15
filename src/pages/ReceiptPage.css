@@ -13,6 +13,16 @@
   box-shadow: 0 4px 12px var(--shadow-color);
 }
 
+/* NEW: Styling for store name */
+.store-name-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.store-name-header h1 {
+  margin: 0;
+  color: var(--text-color);
+}
 .receipt-title {
   text-align: center;
   margin-bottom: 20px;
@@ -20,7 +30,9 @@
 
 .receipt-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Stack items vertically */
+  gap: 0.5rem; /* Add some space between items */
+  align-items: flex-start; /* Align to the start */
   margin-bottom: 20px;
 }
 

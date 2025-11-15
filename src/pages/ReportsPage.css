@@ -1,14 +1,14 @@
 .reports-page h2 {
   margin-bottom: 1.5rem;
 }
-.filter-controls {
+.filter-card { /* FIX: Match class name from JS file */
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   background-color: var(--card-background-color);
   padding: 1rem;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem; /* This is also handled by mb-4 in Tailwind */
   box-shadow: 0 2px 4px var(--shadow-color);
 }
 
@@ -52,7 +52,7 @@
   background-color: var(--background-color);
   color: var(--text-color);
 }
-
+/* FIX: Remove duplicate and incorrect nesting */
 .report-summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -196,6 +196,12 @@
   color: var(--text-color);
 }
 
+.visits-list { /* NEW: Style for the visits list container */
+  background-color: var(--card-background-color);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
 /* --- NEW: Styling untuk tombol ekspor --- */
 .export-btn {
   display: flex;

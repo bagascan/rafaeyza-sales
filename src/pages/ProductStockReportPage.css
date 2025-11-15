@@ -133,6 +133,8 @@
   padding: 1rem;
   border-radius: 6px;
   border-left: 4px solid var(--primary-blue);
+  box-shadow: 0 1px 3px var(--shadow-color);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .customer-stock-card .customer-name {
