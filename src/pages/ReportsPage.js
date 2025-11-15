@@ -103,7 +103,7 @@ const ReportPage = () => {
             <label htmlFor="end-date">Sampai Tanggal:</label>
             <input type="date" id="end-date" name="endDate" value={dateRange.endDate} onChange={handleDateChange} className="p-2 border rounded" />
           </div>
-          <button onClick={handleFetchReport} disabled={loading} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400">
+          <button onClick={handleFetchReport} disabled={loading} className="submit-btn">
             {loading ? 'Memuat...' : 'Tampilkan Laporan'}
           </button>
         </div>

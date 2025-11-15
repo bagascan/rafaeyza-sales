@@ -39,6 +39,27 @@
   color: var(--text-color);
 }
 
+/* --- NEW: Styling for the Submit Button --- */
+.filter-card .submit-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: fit-content; /* Make height adjust to content */
+  flex-grow: 0; /* Prevent button from growing */
+}
+
+.filter-card .submit-btn:disabled {
+  background-color: var(--subtle-text-color);
+  cursor: not-allowed;
+}
+
+
 .preset-filters {
   display: flex;
   gap: 0.5rem;
