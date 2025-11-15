@@ -161,6 +161,25 @@ input[type=number] {
     font-size: 0.95rem;
 }
 
+/* --- NEW: Styling for the location refresh button --- */
+.refresh-location-btn {
+  background: none;
+  border: none;
+  color: var(--primary-blue);
+  cursor: pointer;
+  font-size: 1.1rem; /* Make icon slightly larger */
+  margin-left: 0.75rem; /* Space it out from the text */
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.refresh-location-btn:hover {
+  transform: rotate(90deg); /* Add a little animation on hover */
+}
+
 .attendance-section .input-group {
     margin-top: 1.5rem;
     display: flex;

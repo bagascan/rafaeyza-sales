@@ -111,7 +111,7 @@ const ReportPage = () => {
         {loading && <Spinner />}
 
         {reportData && (
-          <div className="report-content">
+          <div className="report-content mb-4">
             <div className="summary-grid grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div className="summary-card bg-white p-4 rounded-lg shadow">
                 <h3 className="font-bold text-lg">Total Penjualan</h3>
@@ -127,7 +127,7 @@ const ReportPage = () => {
               </div>
             </div>
 
-            <div className="visits-list bg-white p-4 rounded-lg shadow">
+            <div className="visits-list bg-white p-4 rounded-lg shadow mb-10">
               <h3 className="font-bold text-lg mb-2">Detail Kunjungan</h3>
               <div className="overflow-x-auto">
                 <table className="min-w-full">
