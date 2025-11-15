@@ -148,6 +148,11 @@ input[type=number] {
     margin-bottom: 1rem;
     font-size: 0.95rem;
 }
+.location-error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .location-info {
     color: var(--success-green); /* Bootstrap green */

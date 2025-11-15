@@ -523,7 +523,14 @@ const attendancePhotoRef = useRef(null); // NEW: Ref to store the actual photo f
       <div className="visit-detail-page">
         <div className="attendance-section">
           <h4>Absensi di Lokasi</h4>
-          {locationError && <p className="location-error">{locationError}</p>}
+          {locationError && (
+            <div className="location-error-container">
+              <p className="location-error">{locationError}</p>
+              <button type="button" onClick={getLocation} className="refresh-location-btn" title="Cari ulang lokasi">
+                <FaSyncAlt />
+              </button>
+            </div>
+          )}
           {salesLocation && ( // Show location info only if available
             <p className="location-info">
               Akurasi: {isLocationAccurate ? 'Baik' : 'Kurang'}
