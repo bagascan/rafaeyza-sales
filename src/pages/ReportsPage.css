@@ -1,15 +1,42 @@
 .reports-page h2 {
   margin-bottom: 1.5rem;
 }
-.filter-card { /* FIX: Match class name from JS file */
+
+/* --- NEW: Modern Styling for Filter Card --- */
+.filter-card {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   background-color: var(--card-background-color);
-  padding: 1rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  align-items: end; /* Align items to the bottom */
+}
+
+.filter-card .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.filter-card label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.filter-card select,
+.filter-card input[type="date"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  margin-bottom: 1.5rem; /* This is also handled by mb-4 in Tailwind */
-  box-shadow: 0 2px 4px var(--shadow-color);
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .preset-filters {
@@ -198,11 +225,47 @@
 
 .visits-list { /* NEW: Style for the visits list container */
   background-color: var(--card-background-color);
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px var(--shadow-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
-/* --- NEW: Styling untuk tombol ekspor --- */
+
+.visits-list h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* --- NEW: Modern Table Styling --- */
+.visits-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.visits-list th,
+.visits-list td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.visits-list th {
+  background-color: var(--background-color);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--subtle-text-color);
+}
+
+.visits-list tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+}
+
+.visits-list tbody tr:hover {
+  background-color: var(--background-color);
+}
+
 .export-btn {
   display: flex;
   align-items: center;
